@@ -1,0 +1,18 @@
+//--------------------------------------------------------------------------------------------------
+export.sh 実行に必要な設定を記載してください
+
+# ファイル、ディレクトリ path
+- F:spine    Spineコマンドツール. 基本的にSpine.appの中にあります
+- F:export   exportの設定ファイル. Spine > メニュー > Export での設定を`Save`ボタンで出力したファイルです.
+             出力したい内容、形式などによって作り分けてください.
+- D:inport   対象となる.spineファイルが含まれているディレクトリ. 3階層下まで検索します.
+             ヒットしたファイルのリストが`list.txt`として`export.sh`と同じところに出力されます.
+- D:output   実行結果が出力されます.
+//--------------------------------------------------------------------------------------------------
+
+<F:spine>/Applications/Spine/Spine.app/Contents/MacOS/Spine
+<F:export.json>/xxx/yyy/binary-export.json
+<D:inport>/xxx/yyy/proj/spine-files/
+<D:output>./output
+
+
