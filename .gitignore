@@ -1,0 +1,48 @@
+# ---------------[ Unity generated ]------------------ #
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+
+# ----[ Visual Studio / MonoDevelop generated ]------- #
+  
+ExportedObj/
+*.svd
+*.userprefs
+*.csproj
+*.pidb
+*.suo
+*.sln
+*.user
+*.unityproj
+*.booproj
+.vscode/
+.vs/
+
+#  -------[ sublime ]------------#
+*.sublime-project
+*.sublime-workspace
+
+# -------------[ OS generated ]------------------------ #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+*.apk
+
+# -------------[ Special ]------------------------ #
+#DOTween43.dll.meta
+#DOTween46.dll.meta
+#DOTween50.dll.meta
+
+# -------------[ Assets ]------------------------ #
+#AssetBundles/*
+#!AssetBundles/Batch
+
+# -------------[ etc ]------------------------ #
+tags
+tags.meta
+
