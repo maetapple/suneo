@@ -30,10 +30,6 @@ namespace Suneo #EEEEFF {
     class SkeletonSprite
     class SkeletonImage
 
-    interface IRenderer
-    class SpriteRenderer
-    class ImageRenderer
-
     namespace Resource #DDDDFF {
         class Cache
         class Loader

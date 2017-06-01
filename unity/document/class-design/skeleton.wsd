@@ -1,89 +1,27 @@
 @startuml
 
-namespace UnityEngine #EEEEEE {
-    class MonoBehaviour
-    class Material
-    class MeshRenderer
-}
+abstract class Skeleton
+class SpriteSkeleton
+class ImageSkeleton
+interface ISkeletonAnimator
+class SpriteAnimator
+class ImageAnimator
+class SkeletonAsset
 
-namespace Spine #EEEEEE {
-    class AnimationState
-    class TrackEntry
+SpriteAnimator <|.. ISkeletonAnimator
+ImageAnimator <|.. ISkeletonAnimator
+ISkeletonAnimator --> Skeleton
+Skeleton <|-- ImageSkeleton
+Skeleton <|-- SpriteSkeleton
 
-    namespace Unity #DDDDDD {
-        class AtlasAsset
-        class SkeletonDataAsset
-        class SkeletonGraphic
-        class SkeletonAnimation
+Spine.SkeletonGraphic --> ImageAnimator
+Spine.SkeletonAnimation --> SpriteAnimator
+SpriteAnimator ..> SpriteSkeleton
+ImageAnimator ..> ImageSkeleton
 
-        AtlasAsset -[hidden]- SkeletonDataAsset
-        SkeletonDataAsset -[hidden]- SkeletonAnimation
-        SkeletonAnimation -[hidden]- SkeletonGraphic
-    }
-
-    Spine.Unity    -[hidden]---- AnimationState
-    AnimationState *-- TrackEntry    
-}
-
-namespace Suneo #EEEEFF {
-
-    abstract class Skeleton
-
-    interface IRenderer
-    class SpriteRenderer
-    class ImageRenderer
-
-    namespace Behaviour {
-        class SkeletonSprite
-        class SkeletonImage
-    }
-
-    namespace Resource #DDDDFF {
-        class Cache
-        class Loader
-        class Path
-        class Pack
-    }
-
-    namespace Animation #DDDDFF {
-        class Controller
-        class Keeper
-        class State
-    }
-
-    namespace Color #DDDDFF {
-        class Controller
-    }
-}
-
-
-' UnityEngine.MonoBehaviour <|--   Suneo.Skeleton
-' UnityEngine.Material      "1" -* Suneo.Skeleton
-' UnityEngine.MeshRenderer  "1" -* Suneo.Skeleton
-
-' Spine.Unity.AtlasAsset        "1" --* Suneo.Skeleton
-' Spine.Unity.SkeletonDataAsset "1" --* Suneo.Skeleton
-
-
-' Suneo.Skeleton <|-- Suneo.SkeletonSprite
-' Spine.Unity.SkeletonAnimation "1" --* Suneo.SkeletonSprite
-
-' Suneo.Skeleton <|--- Suneo.SkeletonImage
-' Spine.Unity.SkeletonGraphic "1" --* Suneo.SkeletonImage
-
-
-
-' Suneo.Skeleton *--- "1" Suneo.Animation.Controller
-' Suneo.Animation.Controller *-- Suneo.Animation.Keeper
-' Suneo.Animation.Controller *-- Suneo.Animation.State
-' Suneo.Animation.State  *- "1" Spine.AnimationState
-' Suneo.Animation.Keeper o- "n" Spine.TrackEntry
-
-' Suneo.Skeleton *--- "1" Suneo.Color.Controller
-
-' Suneo.Skeleton <... Suneo.Resource.Pack
-' Suneo.Resource.Pack  *-- "1" Suneo.Resource.Path
-' Suneo.Resource.Pack  "n" --o Suneo.Resource.Cache
-' Suneo.Resource.Cache "1" --* Suneo.Resource.Loader
+Skeleton <--- SkeletonAsset
+SkeletonAsset <-- Texture2D
+SkeletonAsset <-- "TextAsset (Atlas)"
+SkeletonAsset <-- "TextAsset (Skeleton)"
 
 @enduml
