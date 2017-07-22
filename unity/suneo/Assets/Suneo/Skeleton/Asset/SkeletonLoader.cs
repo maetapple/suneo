@@ -33,7 +33,8 @@ namespace Suneo
                 return;
             }
 
-            this.GetSkeleton().Setup(this.asset);
+            SkeletonDataAsset dataAsset = SkeletonDataAsset.Create(this.asset);
+            this.GetSkeleton().Setup(dataAsset);
         }
 
 
