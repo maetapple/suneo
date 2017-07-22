@@ -13,6 +13,22 @@
     {
         //=== Initialization
 
+        public static ImageSkeleton Create( SkeletonAsset asset )
+        {
+            return Skeleton.Create<ImageSkeleton>(asset);
+        }
+
+        public static ImageSkeleton Create( SkeletonDataAsset dataAsset )
+        {
+            return Skeleton.Create<ImageSkeleton>(dataAsset);
+        }
+
+        public static ImageSkeleton AddToGameObject( UnityEngine.GameObject go )
+        {
+            return Skeleton.AddToGameObject<ImageSkeleton>(go);
+        }
+
+
         private void Awake()
         {
             this.InitAnimator();

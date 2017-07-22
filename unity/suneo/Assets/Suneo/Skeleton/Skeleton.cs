@@ -7,7 +7,6 @@ namespace Suneo
     /// Spine Skeletonを扱う各機能を集約したベースクラスです
     /// - サブクラスとしてWorldSpaceで扱う`Sprite`, Canvas上で扱う`Image` があります
     /// - `ISkeletonAnimator` Spine.Skeletonの派生クラスを扱うインターフェイス
-    /// - `Resource`  初期化時に必要です
     /// - `Animation` Skeleton Animation Control
     /// - `Color`     Color設定
     /// </summary>
@@ -37,7 +36,7 @@ namespace Suneo
         /// <summary>
         /// 新規GameObjectに`TSkeleton`をAddComponentした形で生成したものを返します.
         /// </summary>
-        public static Skeleton Create<TSkeleton>( SkeletonAsset asset ) where TSkeleton : Skeleton
+        protected static TSkeleton Create<TSkeleton>( SkeletonAsset asset ) where TSkeleton : Skeleton
         {
             SkeletonDataAsset dataAsset = SkeletonDataAsset.Create(asset);
 
@@ -47,10 +46,10 @@ namespace Suneo
         /// <summary>
         /// 新規GameObjectに`TSkeleton`をAddComponentした形で生成したものを返します.
         /// </summary>
-        public static Skeleton Create<TSkeleton>( SkeletonDataAsset dataAsset ) where TSkeleton : Skeleton
+        protected static TSkeleton Create<TSkeleton>( SkeletonDataAsset dataAsset ) where TSkeleton : Skeleton
         {
             GameObject go       = new GameObject(typeof(TSkeleton).Name);
-            Skeleton   skeleton = Skeleton.AddToGameObject<TSkeleton>(go);
+            TSkeleton  skeleton = Skeleton.AddToGameObject<TSkeleton>(go);
 
             skeleton.Setup(dataAsset);
 
@@ -60,7 +59,7 @@ namespace Suneo
         /// <summary>
         /// goにAddComponentした形で生成したものを返します.
         /// </summary>
-        public static TSkeleton AddToGameObject<TSkeleton>( GameObject go ) where TSkeleton : Skeleton
+        protected static TSkeleton AddToGameObject<TSkeleton>( GameObject go ) where TSkeleton : Skeleton
         {
             TSkeleton model = go.AddComponent<TSkeleton>();
 

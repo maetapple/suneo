@@ -48,7 +48,7 @@ public class Test : MonoBehaviour
                 Debug.Assert(false, "FAILED cache creation");
             }
                         
-            Suneo.Skeleton skeleton = Suneo.SpriteSkeleton.Create<Suneo.SpriteSkeleton>(cache);
+            Suneo.Skeleton skeleton = Suneo.SpriteSkeleton.Create(cache);
             skeleton.gameObject.transform.position = pos;
         }
 
