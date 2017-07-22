@@ -2,32 +2,47 @@
 
 namespace Suneo
 {
+    //----------------------------------------------------------------------------------------------
+    /// <summary>
+    /// SkeletonAssetの素材となるデータを集約します
+    /// </summary>
+    //----------------------------------------------------------------------------------------------
     [System.Serializable]
     public class SkeletonAsset
     {
         public const string SpriteShaderName = "Spine/Skeleton";
         public const string ImageShaderName  = "Spine/SkeletonGraphic (Premultiply Alpha)";
 
-        [SerializeField] public string    shader   = SpriteShaderName;
-        [SerializeField] public Texture2D texture  = null;
-        [SerializeField] public TextAsset atlas    = null;
-        [SerializeField] public TextAsset skeleton = null;
+        [SerializeField] public string    ShaderName = SpriteShaderName;
+        [SerializeField] public Texture2D Texture    = null;
+        [SerializeField] public TextAsset Atlas      = null;
+        [SerializeField] public TextAsset Skeleton   = null;
 
-        // public string    ShaderName { get{ return this.shader;   } }
-        // public Texture2D Texture    { get{ return this.texture;  } }
-        // public TextAsset Atlas      { get{ return this.atlas;    } }
-        // public TextAsset Skeleton   { get{ return this.skeleton; } }
 
-        private SkeletonAsset(){}
+        private SkeletonAsset()
+        { return; }
+
         public static SkeletonAsset Create( string shader, Texture2D texture, TextAsset atlas, TextAsset skeleton )
         {
             SkeletonAsset asset = new SkeletonAsset();
-            asset.shader   = shader;
-            asset.texture  = texture;
-            asset.atlas    = atlas;
-            asset.skeleton = skeleton;
+            asset.ShaderName = shader;
+            asset.Texture    = texture;
+            asset.Atlas      = atlas;
+            asset.Skeleton   = skeleton;
 
             return asset;
+        }
+
+        /// <summary>
+        /// Texture, Atlas, Skeleton いずれかが null なら false を返します
+        /// </summary>
+        public bool IsAvailable()
+        {
+            if ( this.Texture  == null ) return false;
+            if ( this.Atlas    == null ) return false;
+            if ( this.Skeleton == null ) return false;
+
+            return true;
         }
     }
 }

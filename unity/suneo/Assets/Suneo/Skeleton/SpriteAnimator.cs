@@ -1,5 +1,4 @@
-﻿using Spine.Unity;
-
+﻿
 namespace Suneo
 {
     //----------------------------------------------------------------------------------------------
@@ -11,17 +10,17 @@ namespace Suneo
     {
         //=== Variables
 
-        private SkeletonAnimation animator = null;
+        private Spine.Unity.SkeletonAnimation animator = null;
 
 
         //=== Initialization
 
-        public static SpriteAnimator Create( SkeletonAnimation animator )
+        public static SpriteAnimator Create( Spine.Unity.SkeletonAnimation animator )
         {
             return new SpriteAnimator(animator);
         }
 
-        private SpriteAnimator( SkeletonAnimation animator )
+        private SpriteAnimator( Spine.Unity.SkeletonAnimation animator )
         {
             this.animator = animator;
         }
@@ -29,14 +28,14 @@ namespace Suneo
 
         //=== Animator
 
-        public SkeletonAnimation GetAnimator()
+        public Spine.Unity.SkeletonAnimation GetAnimator()
         {
             return this.animator;
         }
 
-        void ISkeletonAnimator.Init( Spine.Unity.SkeletonDataAsset data )
+        void ISkeletonAnimator.Init( SkeletonDataAsset data )
         {
-            this.GetAnimator().skeletonDataAsset = data;
+            this.GetAnimator().skeletonDataAsset = data.GetDataAsset();
             this.GetAnimator().Initialize(true);
         }
 
@@ -59,7 +58,7 @@ namespace Suneo
 
         //=== SkeletonAnimation
 
-        public SkeletonAnimation GetSkeletonAnimation()
+        public Spine.Unity.SkeletonAnimation GetSkeletonAnimation()
         {
             return this.GetAnimator();
         }

@@ -27,7 +27,7 @@ namespace Suneo
 
         public void Load()
         {
-            if ( this.asset.texture == null || this.asset.atlas == null || this.asset.skeleton == null )
+            if ( this.asset.IsAvailable() == false )
             {
                 Debug.Assert(false, "Not load");
                 return;

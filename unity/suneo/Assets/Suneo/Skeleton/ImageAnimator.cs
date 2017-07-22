@@ -1,5 +1,4 @@
-﻿using Spine.Unity;
-
+﻿
 namespace Suneo
 {
     //----------------------------------------------------------------------------------------------
@@ -10,16 +9,16 @@ namespace Suneo
     public class ImageAnimator : ISkeletonAnimator
     {
         //=== Variables
-        private SkeletonGraphic animator = null;
+        private Spine.Unity.SkeletonGraphic animator = null;
 
         //=== Initialization
 
-        public static ImageAnimator Create( SkeletonGraphic graphic )
+        public static ImageAnimator Create( Spine.Unity.SkeletonGraphic graphic )
         {
             return new ImageAnimator(graphic);
         }
 
-        private ImageAnimator( SkeletonGraphic graphic )
+        private ImageAnimator( Spine.Unity.SkeletonGraphic graphic )
         {
             this.animator = graphic;
         }
@@ -27,14 +26,14 @@ namespace Suneo
 
         //=== Animator
 
-        public SkeletonGraphic GetAnimator()
+        public Spine.Unity.SkeletonGraphic GetAnimator()
         {
             return this.animator;
         }
 
-        void ISkeletonAnimator.Init( Spine.Unity.SkeletonDataAsset data )
+        void ISkeletonAnimator.Init( SkeletonDataAsset data )
         {
-            this.GetAnimator().skeletonDataAsset = data;
+            this.GetAnimator().skeletonDataAsset = data.GetDataAsset();
             this.GetAnimator().Initialize(true);
         }
 
@@ -57,7 +56,7 @@ namespace Suneo
 
         //=== SkeletonGraphic
 
-        public SkeletonGraphic GetSkeletonGraphic()
+        public Spine.Unity.SkeletonGraphic GetSkeletonGraphic()
         {
             return this.GetAnimator();
         }

@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using Spine.Unity;
 
 namespace Suneo
 {
@@ -17,9 +16,7 @@ namespace Suneo
     {        
         //=== Variables
 
-        private Material              material        = null;
         private MeshRenderer          meshRenderer    = null;
-        private AtlasAsset            atlasAsset      = null;
         private SkeletonDataAsset     dataAsset       = null;
         private Animation.Controller  animController  = null;
         private Color.Controller      colorController = null;
@@ -28,36 +25,23 @@ namespace Suneo
 
         //=== Accessor
 
-        public Material             GetMaterial()    { return this.material; }
         public MeshRenderer         GetMeshRenderer(){ return this.meshRenderer; }
-        public AtlasAsset           GetAtlasAsset()  { return this.atlasAsset; }
-        public SkeletonDataAsset    GetDataAsset()   { return this.dataAsset; }
         public Animation.Controller GetAnimation()   { return this.animController; }
         public Color.Controller     GetColor()       { return this.colorController; }
         
-        private ISkeletonAnimator   GetSkeletonAnimator() { return this.animator; }
+        public  SkeletonDataAsset   GetSkeletonDataAsset() { return this.dataAsset; }
+        private ISkeletonAnimator   GetSkeletonAnimator()  { return this.animator; }
 
 
         //=== Initialization
 
         /// <summary>
-        /// 新規GameObjectに<T>をAddComponentした形で生成したものを返します.
-        /// Resource.PackによるSetup()も実行します.
+        /// 新規GameObjectに`TSkeleton`をAddComponentした形で生成したものを返します.
         /// </summary>
-        // public static T Create<T>( Resource.Pack pack ) where T : Skeleton
-        // {
-        //     GameObject go       = new GameObject(typeof(T).Name);
-        //     T          skeleton = Skeleton.AddToGameObject<T>(go);
-
-        //     skeleton.Setup(pack);
-
-        //     return skeleton;
-        // }
-
-        public static Skeleton Create<T>( SkeletonAsset asset ) where T : Skeleton
+        public static Skeleton Create<TSkeleton>( SkeletonAsset asset ) where TSkeleton : Skeleton
         {
-            GameObject go       = new GameObject(typeof(T).Name);
-            Skeleton   skeleton = Skeleton.AddToGameObject<T>(go);
+            GameObject go       = new GameObject(typeof(TSkeleton).Name);
+            Skeleton   skeleton = Skeleton.AddToGameObject<TSkeleton>(go);
 
             skeleton.Setup(asset);
 
@@ -67,9 +51,9 @@ namespace Suneo
         /// <summary>
         /// goにAddComponentした形で生成したものを返します.
         /// </summary>
-        public static T AddToGameObject<T>( GameObject go ) where T : Skeleton
+        public static TSkeleton AddToGameObject<TSkeleton>( GameObject go ) where TSkeleton : Skeleton
         {
-            T model = go.AddComponent<T>();
+            TSkeleton model = go.AddComponent<TSkeleton>();
 
             return model;            
         }
@@ -83,44 +67,17 @@ namespace Suneo
         }
 
 
-        /// <summary>
-        /// Load済みのResource.Packを渡してください.
-        /// </summary>
-        // public void Setup( Resource.Pack pack )
-        // {
-        //     if ( pack == null )
-        //     {
-        //         Debug.Assert(pack != null, "Skeleton: Need loaded Resource.Pack for setup.");
-        //         return;
-        //     }
-
-        //     SkeletonAsset asset = SkeletonAsset.Create(pack.ShaderPath.Shader, pack.Texture, pack.Atlas, pack.Skeleton);
-        //     this.Setup(asset);
-        // }
-
-
         public void Setup( SkeletonAsset asset )
         {
-            // Material
-            this.material = this.CreateMaterial(asset.shader, asset.texture);
-            
-            if ( this.material == null )
-            {
-                this.material = this.CreateMaterial(SkeletonAsset.SpriteShaderName, asset.texture);
-            }
-
-            // AtlasAsset 
-            this.atlasAsset = this.CreateAtlasAsset(asset.atlas, this.GetMaterial());
-
-            // SkeletonDataAsset
-            this.dataAsset = this.CreateSkeletonDataAsset(asset.skeleton, this.GetAtlasAsset());
-
             // @TODO MeshRenderer じゃなく Rendererとして扱えないか？
             // MeshRenderer
             // this.InitRenderer();
 
+            // SkeletonDataAsset
+            this.dataAsset = SkeletonDataAsset.Create(asset);
+
             // Sub Class             
-            this.GetSkeletonAnimator().Init(this.GetDataAsset());
+            this.GetSkeletonAnimator().Init(this.GetSkeletonDataAsset());
 
             // Animation Controller
             this.animController = Animation.Controller.Create(this.GetSkeletonAnimator().GetAnimationState());
@@ -131,34 +88,6 @@ namespace Suneo
             Debug.Assert(this.colorController != null, "Need initialize ColorController.");
         }
 
-
-        private Material CreateMaterial( string shaderName, Texture2D texture )
-        {
-            Shader shader = Shader.Find(shaderName);
-
-            if ( shader == null )
-                return null;
-
-            Material mat = new Material(shader);
-            mat.mainTexture = texture;
-
-            return mat;
-        }
-
-        private AtlasAsset CreateAtlasAsset( TextAsset atlas, Material material )
-        {
-            Material[] materials  = new Material[1]{ material };
-            bool       initialize = true;
-
-            return AtlasAsset.CreateRuntimeInstance(atlas, materials, initialize);
-        }
-
-        private SkeletonDataAsset CreateSkeletonDataAsset( TextAsset skeleton, AtlasAsset atlas, float scale=0.01f )
-        {
-            bool initialize = true;
-
-            return SkeletonDataAsset.CreateRuntimeInstance(skeleton, atlas, initialize, scale);
-        }
 
         private void InitRenderer()
         {

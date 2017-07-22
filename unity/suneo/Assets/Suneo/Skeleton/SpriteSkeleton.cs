@@ -24,7 +24,8 @@
 
             if ( animation == null )
             {
-                animation = Spine.Unity.SkeletonAnimation.AddToGameObject(this.gameObject, this.GetDataAsset());
+                Spine.Unity.SkeletonDataAsset asset = this.GetSkeletonDataAsset().GetDataAsset();
+                animation = Spine.Unity.SkeletonAnimation.AddToGameObject(this.gameObject, asset);
             }
 
             ISkeletonAnimator animator = SpriteAnimator.Create(animation);

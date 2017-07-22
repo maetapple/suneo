@@ -11,7 +11,7 @@ namespace Suneo
         /// <summary>
         /// SkeletonDataAsset による Skeleton 初期化を実装してください.
         /// </summary>
-        void Init( Spine.Unity.SkeletonDataAsset data );
+        void Init( SkeletonDataAsset data );
 
         /// <summary>
         /// Spine.AnimationState もしくは null を返すようにしてください.
