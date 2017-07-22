@@ -39,7 +39,6 @@
         /// </summary>
         private void Reset()
         {
-            UnityEngine.Debug.Log("Reset");
             this.InitAnimator();
         }
     }

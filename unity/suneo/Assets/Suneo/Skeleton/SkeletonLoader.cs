@@ -10,13 +10,19 @@ namespace Suneo
         //=== At inspector
         [SerializeField] public SkeletonAsset asset = null;
 
-        //=== Variables
+        //=== Field
         private Skeleton skeleton = null;
 
 
         private Skeleton GetSkeleton()
         {
             return this.skeleton;
+        }
+
+        private void AssignSkeleton()
+        {
+            this.skeleton = this.gameObject.GetComponentInChildren<Skeleton>();
+            Debug.Assert(this.skeleton != null, "Failed get component: Skeleton");
         }
 
         public void Load()
@@ -31,15 +37,23 @@ namespace Suneo
         }
 
 
+        //=== Unity event function
+
+        private void Awake()
+        {
+            this.AssignSkeleton();
+            this.Reset();
+        }
+
+
+        //=== Editor mode only
+
         /// <summary>
         /// インスペクターのコンテキストメニューにある`Reset`ボタンやコンポーネントを初めて追加するときに呼び出されます.
         /// </summary>
         private void Reset()
         {
-            this.skeleton = this.gameObject.GetComponentInChildren<Skeleton>();
-            Debug.Assert(this.skeleton != null, "Failed get component: Skeleton");
-
-            SpriteSkeleton sprite = this.skeleton as SpriteSkeleton;
+            SpriteSkeleton sprite = this.GetSkeleton() as SpriteSkeleton;
 
             if ( sprite != null )
             {
@@ -47,7 +61,7 @@ namespace Suneo
                 return;
             }
 
-            ImageSkeleton image = this.skeleton as ImageSkeleton;
+            ImageSkeleton image = this.GetSkeleton() as ImageSkeleton;
 
             if ( image != null )
             {
