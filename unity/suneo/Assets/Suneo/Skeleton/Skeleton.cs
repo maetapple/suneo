@@ -15,7 +15,6 @@ namespace Suneo
     {        
         //=== Variables
 
-        private MeshRenderer          meshRenderer    = null;
         private Animation.Controller  animController  = null;
         private Color.Controller      colorController = null;
         private SkeletonDataAsset     dataAsset       = null;
@@ -24,7 +23,6 @@ namespace Suneo
 
         //=== Accessor
 
-        public  MeshRenderer         GetMeshRenderer()      { return this.meshRenderer; }
         public  Animation.Controller GetAnimation()         { return this.animController; }
         public  Color.Controller     GetColor()             { return this.colorController; }
         public  SkeletonDataAsset    GetSkeletonDataAsset() { return this.dataAsset; }
@@ -77,10 +75,6 @@ namespace Suneo
 
         public void Setup( SkeletonDataAsset dataAsset )
         {
-            // @TODO MeshRenderer じゃなく Rendererとして扱えないか？
-            // MeshRenderer
-            // this.InitRenderer();
-
             // SkeletonDataAsset
             this.dataAsset = dataAsset;
 
@@ -108,8 +102,6 @@ namespace Suneo
             
             renderer.sortingLayerName = "Default";
             renderer.sortingOrder     = 0;
-
-            this.meshRenderer = renderer;            
         }
 
         //=== ISkeletonAnimator
