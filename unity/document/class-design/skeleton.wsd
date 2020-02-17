@@ -1,0 +1,27 @@
+@startuml
+
+abstract class Skeleton
+class SpriteSkeleton
+class ImageSkeleton
+interface ISkeletonAnimator
+class SpriteAnimator
+class ImageAnimator
+class SkeletonAsset
+
+SpriteAnimator <|.. ISkeletonAnimator
+ImageAnimator <|.. ISkeletonAnimator
+ISkeletonAnimator --> Skeleton
+Skeleton <|-- ImageSkeleton
+Skeleton <|-- SpriteSkeleton
+
+Spine.SkeletonGraphic --> ImageAnimator
+Spine.SkeletonAnimation --> SpriteAnimator
+SpriteAnimator ..> SpriteSkeleton
+ImageAnimator ..> ImageSkeleton
+
+Skeleton <--- SkeletonAsset
+SkeletonAsset <-- Texture2D
+SkeletonAsset <-- "TextAsset (Atlas)"
+SkeletonAsset <-- "TextAsset (Skeleton)"
+
+@enduml
