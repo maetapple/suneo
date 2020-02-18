@@ -131,7 +131,7 @@ echo -e "\n//===== Import"
 echo "# Make input file list."
 echo "find $INPUT_DIR -name *$INPUT_FILE_EXTENSION -maxdepth 3 > $TARGET_LIST"
 
-find $INPUT_DIR -name *$INPUT_FILE_EXTENSION -maxdepth 3 > $TARGET_LIST
+find $INPUT_DIR -name *$INPUT_FILE_EXTENSION -maxdepth 3 | sort > $TARGET_LIST
 
 echo ""
 echo "# Import with list."
